@@ -1,0 +1,100 @@
+""侦测文件类型
+filetype on
+
+""载入文件类型插件
+filetype plugin indent on
+
+""显示行号
+set number
+
+""Tab缩进
+set tabstop=4
+
+""统一缩进
+set shiftwidth=4
+
+""设置匹配模式高亮显示匹配的括号
+set showmatch
+
+""忽略大小写
+set ignorecase
+
+""pydiction路经
+let g:pydiction_location = '~/.vim/ftplugin/pydiction/complete-dict'
+
+""侦测到相应的代码的时候显示行号
+if has("autocmd")
+	autocmd FileType xml,html,c,cs,java,perl,shell,bash,cpp,python,vim,php,ruby set number
+	autocmd FileType xml,html vmap <C-o> <ESC>'<i<!--<ESC>o<ESC>'>o-->
+	autocmd FileType java,c,cpp,cs vmap <C-o> <ESC>'<o/*<ESC>'>o*/
+	autocmd FileType html,text,php,vim,c,java,xml,bash,shell,perl,python setlocal textwidth=100
+	autocmd Filetype html,xml,xsl source $VIMRUNTIME/plugin/closetag.vim
+	autocmd BufReadPost *
+				\ if line("'\"") > 0 && line("'\"") <= line("$") |
+				\   exe "normal g`\"" |
+				\ endif
+endif " has("autocmd")
+
+""折叠代码
+set foldmethod=indent
+
+""自动缩进
+set autoindent
+set smartindent
+
+""语法高亮
+syntax on
+
+""不使用vi的键盘模式
+set nocompatible
+
+""映射关系
+map <tab> :bn<cr>
+map <F7> :NERDTreeToggle<cr>
+map <F8> :TlistToggle<cr>
+
+""历史
+set history=100
+
+
+""显示状态行
+set laststatus=2
+
+""状态行显示
+set ruler
+set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%)
+
+" 高亮字符，让其不受100列限制
+:highlight OverLength ctermbg=red ctermfg=white guibg=red guifg=white
+:match OverLength '\%101v.*'
+
+" 状态行颜色
+highlight StatusLine guifg=SlateBlue guibg=Yellow
+highlight StatusLineNC guifg=Gray guibg=White
+
+
+""不要闪烁
+set novisualbell
+
+""去掉声音
+set noerrorbells
+
+""命令行高度显示
+set cmdheight=1
+
+""搜索的句子不高亮显示
+set nohlsearch
+
+""搜索时候输入的句子逐个字符亮
+set incsearch
+
+" 高亮显示普通txt文件（需要txt.vim脚本）
+" au BufRead,BufNewFile * setfiletype txt
+
+"""""""""""""""""""""""
+"Ctags
+"""""""""""""""""""""""
+let Tlist_Sort_Type="name"
+let Tlist_Enable_Fold_Column=0
+""不关闭其他文件tags
+let Tlist_File_Fold_Auto_Close=0
